@@ -1,0 +1,54 @@
+# script name
+me="$BASH_SOURCE"
+# current folder
+ME=$(realpath .)
+
+unset count;
+
+################################################################################
+function prog(){
+# https://unix.stackexchange.com/questions/415421/linux-how-to-create-simple-progress-bar-in-bash
+	local w=80 x1=$1 x2=$2;  shift 2;
+	p1=$(( $x1*80/$x2 ));
+	p2=$(( $x1*100/$x2 ));
+	# echo -en "\r ... $x1 - $x2 - $p ... ";
+	printf -v dash "%*s" "$(( $w-$p1 ))" ""; dash=${dash// /_};
+	printf -v hash "%*s>" "$p1" ""; hash=${hash// /=};
+
+	printf "\r%s\t\e[K[%-*s] %3d%%" "$*" "$w" "$hash$dash" "$p2"; 
+}
+################################################################################
+
+################################################################################
+function MSG {
+  # MSGs
+  # set +x  
+  echo -en "\n";
+  text="$1";delay="$2";if [ -z $delay ]; then delay=".001"; fi
+  for i in $(seq 0 $(expr length "${text}")); do printf "${text:$i:1}";sleep ${delay};done;
+  counter;
+  echo -en "\n";
+}
+################################################################################
+
+################################################################################
+function MSGx {
+  echo -en "\r$1";
+  counter;
+}
+################################################################################
+
+################################################################################
+function counter {
+  count=$[$count+1];
+  echo -en "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t ..... $count";
+}
+################################################################################
+
+#		progcount=$(ls files|wc -l);
+#		progcounter=1;
+#   for x in xs;do
+#			prog  "$progcounter" "$progcount" "message";
+#			command
+#     progcounter=$((progcounter+1));
+#   done
