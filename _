@@ -1,0 +1,9 @@
+#!/bin/bash
+################################################################################
+
+# script name
+me="$BASH_SOURCE";
+
+# current folder
+ME=$(realpath .);
+
