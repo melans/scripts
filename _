@@ -7,3 +7,4 @@ me="$BASH_SOURCE";
 # current folder
 ME=$(realpath .);
 
+echo "TEST";
